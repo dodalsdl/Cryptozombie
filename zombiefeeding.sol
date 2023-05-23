@@ -23,8 +23,8 @@ contract ZombieFeeding is ZombieFactory { //ZombieFeeding이 ZombieFactory를 �
   KittyInterface kittyContract = KittyInterface(ckAddress);
 
   function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
-    require(msg.sender == zombieToOwner[_zombieId]); //msg.sender는 솔리디티의 특수 전역변수이다.
-    Zombie storage myZombie = zombies[_zombieId];
+    require(msg.sender == zombieToOwner[_zombieId]); //msg.sender는 솔리디티의 특수 전역변수이다. require(제약조건); -> 여러번 생성, 인출 등 방지 혹은 허용된 사용자만 접근 가능하게 제약조건 추가한다.
+    Zombie storage myZombie = zombies[_zombieId]; //storage -> 블록체인 상에 영구저장, memory -> 특정 함수에서 선언시 해당 범위에서만 사용하고 사라짐
     _targetDna = _targetDna % dnaModulus;
     uint newDna = (myZombie.dna + _targetDna) / 2;
     if (keccak256(_species) == keccak256("kitty")) {
