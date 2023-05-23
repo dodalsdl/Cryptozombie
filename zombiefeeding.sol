@@ -17,13 +17,13 @@ contract KittyInterface {
   );
 }
 
-contract ZombieFeeding is ZombieFactory {
+contract ZombieFeeding is ZombieFactory { //ZombieFeeding이 ZombieFactory를 상속한다.
 
   address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
   KittyInterface kittyContract = KittyInterface(ckAddress);
 
   function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
-    require(msg.sender == zombieToOwner[_zombieId]);
+    require(msg.sender == zombieToOwner[_zombieId]); //msg.sender는 솔리디티의 특수 전역변수이다.
     Zombie storage myZombie = zombies[_zombieId];
     _targetDna = _targetDna % dnaModulus;
     uint newDna = (myZombie.dna + _targetDna) / 2;
